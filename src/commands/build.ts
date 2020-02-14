@@ -10,7 +10,7 @@ export function setup(commandHost: CommandHost) {
           array: true,
           string: true,
           description: 'Specify the path to source entrypoint',
-          default: ['./lib/index.ts'],
+          default: ['./src/index.ts'],
         },
       },
     },
