@@ -3,6 +3,6 @@
 //@ts-check
 'use strict';
 
-const Tools = require('../dist/index.js');
+const Tools = require('../dist/cli.js');
 
 Tools.executeCommandLine();

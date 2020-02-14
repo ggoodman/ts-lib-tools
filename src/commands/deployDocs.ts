@@ -8,9 +8,9 @@ export function setup(commandHost: CommandHost) {
       options: {} as const,
     },
     async () => {
-      const handler = await import('../handlers/deployDocs');
+      const { deployDocs } = await import('../deploy');
 
-      return handler.run();
+      return deployDocs();
     }
   );
 }

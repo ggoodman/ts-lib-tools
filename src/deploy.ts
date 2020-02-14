@@ -2,7 +2,7 @@ import * as Path from 'path';
 
 import * as GhPages from 'gh-pages';
 
-export async function run() {
+export async function deployDocs() {
   const docsDir = Path.resolve(process.cwd(), './docs');
 
   await new Promise((resolve, reject) => {
@@ -13,12 +13,5 @@ export async function run() {
 
       return resolve();
     });
-  });
-}
-
-if (!module.parent) {
-  run().catch(err => {
-    console.error(err);
-    throw err;
   });
 }

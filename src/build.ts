@@ -7,13 +7,27 @@ import RollupPluginNodeResolve from '@rollup/plugin-node-resolve';
 import * as Rollup from 'rollup';
 import RollupPluginTs from '@wessberg/rollup-plugin-ts';
 
-import { getAndValidateDistDir } from '../validation';
+import { getAndValidateDistDir } from './validation';
 
 interface BuildOptions {
+  /**
+   * Toggle whether to first empty the target directory
+   */
+  emptyDir?: boolean;
+  /**
+   * Entrypoint to the code base
+   *
+   * @default "./src/index.ts"
+   */
   entry?: string;
 }
 
-export async function run(options: BuildOptions) {
+/**
+ * Build a project from source into a minimal (set of) bundle(s)
+ *
+ * @param options Build options
+ */
+export async function buildWithRollup(options: BuildOptions = {}) {
   const packageData = await Fs.promises.readFile(
     Path.resolve(process.cwd(), './package.json'),
     'utf-8'
@@ -39,12 +53,13 @@ export async function run(options: BuildOptions) {
   const relativeRequire = Module.Module.createRequire(distMainPathName);
   const typescript = await import(relativeRequire.resolve('typescript'));
   const outputOptions: Rollup.OutputOptions = {
-    dir: Path.dirname(distMainPathName),
+    dir: distDirName,
+    // file: distMainPathName,
     format: 'commonjs',
     sourcemap: true,
   };
   const rollup = await Rollup.rollup({
-    input: options.entry || './src/index.ts',
+    input: Path.resolve(process.cwd(), options.entry || './src/index.ts'),
     output: outputOptions,
     external(id) {
       if (id.match(/^[./]/)) {
@@ -75,8 +90,10 @@ export async function run(options: BuildOptions) {
     ],
   });
 
-  console.log('Emptying', distDirName);
-  await Fs.promises.rmdir(distDirName, { recursive: true });
+  if (options.emptyDir) {
+    console.log('Emptying', distDirName);
+    await Fs.promises.rmdir(distDirName, { recursive: true });
+  }
 
   const output = await rollup.write(outputOptions);
 
@@ -93,7 +110,7 @@ export async function run(options: BuildOptions) {
 }
 
 if (!module.parent) {
-  run({}).catch(err => {
+  buildWithRollup().catch(err => {
     console.error(err);
     throw err;
   });

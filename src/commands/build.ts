@@ -7,16 +7,24 @@ export function setup(commandHost: CommandHost) {
       description: 'Build out something',
       options: {
         entry: {
+          array: true,
           string: true,
           description: 'Specify the path to source entrypoint',
-          defaultValue: './lib/index.ts',
-        }
-      } as const,
+          default: ['./lib/index.ts'],
+        },
+      },
     },
-    async (argv) => {
-      const handler = await import('../handlers/build');
+    async argv => {
+      const { buildWithRollup } = await import('../build');
 
-      return handler.run(argv);
+      for (const i in argv.entry) {
+        const entry = argv.entry[i];
+
+        await buildWithRollup({
+          emptyDir: i === '0',
+          entry,
+        });
+      }
     }
   );
 }

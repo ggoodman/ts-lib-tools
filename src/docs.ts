@@ -3,9 +3,9 @@ import * as Path from 'path';
 
 import * as Typedoc from 'typedoc';
 
-import { getAndValidateDistDir } from '../validation';
+import { getAndValidateDefinitionsPath } from './validation';
 
-export async function run() {
+export async function buildDocs() {
   const packageData = await Fs.promises.readFile(
     Path.resolve(process.cwd(), './package.json'),
     'utf-8'
@@ -20,7 +20,7 @@ export async function run() {
     docsPathName
   );
 
-  const typingsPathName = getAndValidateDistDir(packageJson);
+  const typingsPathName = getAndValidateDefinitionsPath(packageJson);
   const app = new Typedoc.Application();
 
   app.options.addReader(new Typedoc.TSConfigReader());

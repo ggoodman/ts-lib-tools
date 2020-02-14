@@ -5,8 +5,12 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "bin": "./bin/ts-lib-tools",
+  "files": [
+    "bin",
+    "dist"
+  ],
   "scripts": {
-    "build": "./bin/ts-lib-tools build",
+    "build": "./bin/ts-lib-tools build --entry ./src/index.ts --entry ./src/cli.ts",
     "deploy:docs": "./bin/ts-lib-tools deploy-docs",
     "docs": "./bin/ts-lib-tools docs"
   },
