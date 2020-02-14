@@ -1,0 +1,48 @@
+{
+  "name": "@ggoodman/ts-lib-tools",
+  "version": "0.0.0",
+  "description": "Opinionated tooling for managing the lifecycle of TypeScript libraries",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "bin": "./bin/ts-lib-tools",
+  "scripts": {
+    "build": "./bin/ts-lib-tools build",
+    "deploy:docs": "./bin/ts-lib-tools deploy-docs",
+    "docs": "./bin/ts-lib-tools docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ggoodman/ts-lib-tools.git"
+  },
+  "keywords": [],
+  "author": "Geoff Goodman <geoff@plnkr.co> (https://geoff.goodman.dev)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ggoodman/ts-lib-tools/issues"
+  },
+  "homepage": "https://github.com/ggoodman/ts-lib-tools#readme",
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@wessberg/rollup-plugin-ts": "^1.2.17",
+    "gh-pages": "^2.2.0",
+    "rollup": "^1.31.0",
+    "typedoc": "^0.16.9",
+    "yargs": "^15.1.0"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "@rollup/plugin-json": "^4.0.2",
+    "@types/gh-pages": "^2.0.1",
+    "@types/node": "^12.12.27",
+    "@types/yargs": "^15.0.3",
+    "typescript": "^3.7.5"
+  },
+  "peerDependencies": {
+    "typescript": "^3.7.5"
+  }
+}
