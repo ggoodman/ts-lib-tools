@@ -1,6 +1,6 @@
 {
   "name": "@ggoodman/ts-lib-tools",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Opinionated tooling for managing the lifecycle of TypeScript libraries",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
