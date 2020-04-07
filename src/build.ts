@@ -7,9 +7,9 @@ import RollupPluginNodeResolve from '@rollup/plugin-node-resolve';
 import * as Rollup from 'rollup';
 import RollupPluginTs from '@wessberg/rollup-plugin-ts';
 
-import { getAndValidateDistDir } from './validation';
+import { getAndValidateDistDir } from './getAndValidateDistDir';
 
-interface BuildOptions {
+export interface BuildOptions {
   /**
    * Toggle whether to first empty the target directory
    */
@@ -84,7 +84,7 @@ export async function buildWithRollup(options: BuildOptions = {}) {
       RollupPluginTs({
         exclude: ['node_modules'],
         cwd: process.cwd(),
-        tsconfig: resolvedConfig => ({ ...resolvedConfig, declaration: true }),
+        tsconfig: (resolvedConfig) => ({ ...resolvedConfig, declaration: true }),
         typescript,
       }),
     ],
@@ -110,7 +110,7 @@ export async function buildWithRollup(options: BuildOptions = {}) {
 }
 
 if (!module.parent) {
-  buildWithRollup().catch(err => {
+  buildWithRollup().catch((err) => {
     console.error(err);
     throw err;
   });
